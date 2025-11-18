@@ -3,7 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 // 导入ElementPlus
-import ElementPlus from './ElementPlus.vue'
+import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 // 创建Vue实例
