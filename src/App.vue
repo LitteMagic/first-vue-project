@@ -1,10 +1,9 @@
 <script setup>
-import ArticleVue from "./Article.vue";
+import Login from "./view/Login.vue";
 </script>
 
 <template>
-
-  <ArticleVue/>
+  <Login/>
 </template>
 
 <style>
