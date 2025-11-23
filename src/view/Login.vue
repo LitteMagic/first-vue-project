@@ -1,7 +1,47 @@
 <script setup>
 import {ref} from "vue";
-// 注释测试123445
-let isRegister = ref(false);
+
+const isRegister = ref(false);
+
+const registerData = ref({
+  username: "",
+  password: "",
+  rePassword: ""
+});
+
+/**
+ * 注册信息检验 - 再次输入密码检验规则
+ * @param rule
+ * @param value
+ * @param callback
+ */
+const checkRePassword = (rule, value, callback) => {
+  if (value === "") {
+    // 密码为空
+    callback(new Error('请再次输入密码'));
+  }else if (value !== registerData.value.password){
+    // 两次密码输入不一致
+    callback(new Error('两次密码不一致，请再次确认'));
+  }else{
+    // 验证通过
+    callback();
+  }
+}
+
+// 注册信息检验规则
+const registerRules = {
+  username: [
+    {required: true, message: '用户名不得为空', trigger: 'blur'},
+    {min: 6, max: 16, message: '用户名长度要求为6~16字符', trigger: 'blur'}
+  ],
+  password: [
+    {required: true, message: '密码不得为空', trigger: 'blur' },
+    {min: 6, max: 16, message: '密码长度为6~16字符', trigger: 'blur'}
+  ],
+  rePassword: [
+    {validator: checkRePassword, trigger: 'blur'}
+  ]
+};
 </script>
 
 <template>
@@ -9,18 +49,18 @@ let isRegister = ref(false);
     <el-col class="background" :span="12"></el-col>
     <el-col class="form" :span="6" :offset="3">
       <!--    注册表单-->
-      <el-form ref="form" size="large" v-if="isRegister">
+      <el-form ref="form" size="large" v-if="isRegister" :model="registerData" :rules="registerRules">
         <el-form-item>
           <h1>注册</h1>
         </el-form-item>
-        <el-form-item>
-          <el-input placeholder="请输入用户名"></el-input>
+        <el-form-item prop="username">
+          <el-input placeholder="请输入用户名" v-model="registerData.username"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input type="password" placeholder="请输入密码"></el-input>
+        <el-form-item prop="password">
+          <el-input type="password" placeholder="请输入密码" v-model="registerData.password"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input type="password" placeholder="请再次输入密码"></el-input>
+        <el-form-item prop="rePassword">
+          <el-input type="password" placeholder="请再次输入密码" v-model="registerData.rePassword"></el-input>
         </el-form-item>
         <!--      注册按钮-->
         <el-form-item>
