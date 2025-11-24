@@ -10,6 +10,8 @@ const instance = axios.create({baseURL});
 // 配置请求拦截器
 instance.interceptors.request.use(
     (config) => {
+        const tokenStore = useTokenStore();
+        
 
     }
 );
