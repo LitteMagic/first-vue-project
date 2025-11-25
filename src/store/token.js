@@ -12,4 +12,4 @@ const myStoreImpl = () => {
 
 
 export const useTokenStore
-    = defineStore('token', myStoreImpl, { presist:true } );
+    = defineStore('token', myStoreImpl, { persist: true } );
