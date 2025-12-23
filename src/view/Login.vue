@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-
+import {userRegisterServicce} from '@/api/user.js'
 const isRegister = ref(false);
 
 const registerData = ref({
@@ -42,7 +42,21 @@ const registerRules = {
     {validator: checkRePassword, trigger: 'blur'}
   ]
 };
+
+/**
+ * 用户注册逻辑
+ * @returns {Promise<void>}
+ */
+const register = async () => {
+  const result = await userRegisterServicce(registerData.value);
+  if (result.code === 0) {
+    alert(result.msg ? result.msg : "注册成功" );
+  }else{
+    alert(result.msg ? result.msg : "注册失败");
+  }
+}
 </script>
+
 
 <template>
   <el-row class="login-page">
@@ -64,7 +78,9 @@ const registerRules = {
         </el-form-item>
         <!--      注册按钮-->
         <el-form-item>
-          <el-button class="button" type="primary">注册</el-button>
+          <el-button class="button" type="primary" @click="register">
+            注册
+          </el-button>
         </el-form-item>
         <el-form-item class="flex">
           <el-link type="info" @click="isRegister = false">
