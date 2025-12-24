@@ -13,5 +13,5 @@ export const userRegisterServicce = (registerData) => {
         params.append(key, registerData[key]);
     }
 
-    return request.post('/user/register', registerData);
+    return request.post('/user/register', params);
 }
