@@ -55,6 +55,9 @@ const register = async () => {
 
 }
 
+//导入路由
+import {useRouter} from "vue-router";
+const router = useRouter();
 /**
  * 用户登录逻辑
  * @returns {Promise<void>}
@@ -62,6 +65,8 @@ const register = async () => {
 const login = async () => {
   const result = await userLoginServicce(registerData.value);
   ElMessage.success(result.msg ? result.msg : "登录成功")
+//   将路由转换到主页面（layout）
+  router.push("/");
 }
 
 /**
